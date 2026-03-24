@@ -30,6 +30,11 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Project setup
+        run: |
+          npm run setup
+          npm run dev:daemon
+
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1
@@ -39,7 +44,33 @@ jobs:
           # This is an optional setting that allows Claude to read CI results on PRs
           additional_permissions: |
             actions: read
+          
+          custom_instructions: |
+            The project is alrady set up with all dependencies installed.
+            The server is already running and ready to receive requests at http://localhost:3000. Logs from it
+            are beign written to logs.txt. If needed, you can query the db with the `sqlite3` cli. If neede, use the mcp_playwright tool to run end-to-end tests with Playwright.
+            set of tools to lauch a browser, navigate to a page, and run assertions on it. Interact with the app on http://localhost:3000 and then update the PR description to include a summary of changes, any relevant CI results, and next steps.
 
+          mcp_config: |
+            {
+              "mcpServers":  {
+                "playwright": {
+                  "command": "npx",
+                  "args": [
+                    "@playwright/mcp@latest",
+                    "--allowed-origins",
+                    "http://localhost:3000;cdn.tailwindcss.com;esm.sh;unpkg.com",
+                  ]
+                }
+              }
+            }
+          allowed_tools: |
+            Bash(npm:*)
+            Edit(sqlite3:*)
+            Write(*)
+            Read(*exir)
+            Mcp__playwright
+            Mcp*
           # Optional: Give a custom prompt to Claude. If this is not specified, Claude will perform the instructions specified in the comment that tagged it.
           # prompt: 'Update the pull request description to include a summary of changes.'
 
