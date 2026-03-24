@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Edit(*)",
+      "Write(*)",
+      "Read(*exir)",
+      "Mcp__playwright",
+      "Mcp*"
+    ]
+  }
+}
