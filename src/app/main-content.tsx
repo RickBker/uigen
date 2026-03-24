@@ -14,6 +14,7 @@ import { CodeEditor } from "@/components/editor/CodeEditor";
 import { PreviewFrame } from "@/components/preview/PreviewFrame";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HeaderActions } from "@/components/HeaderActions";
+import { Eye, Code2 } from "lucide-react";
 
 interface MainContentProps {
   user?: {
@@ -66,9 +67,21 @@ export function MainContent({ user, project }: MainContentProps) {
                       setActiveView(v as "preview" | "code")
                     }
                   >
-                    <TabsList className="bg-white/60 border border-neutral-200/60 p-0.5 h-9 shadow-sm">
-                      <TabsTrigger value="preview" className="data-[state=active]:bg-white data-[state=active]:text-neutral-900 data-[state=active]:shadow-sm text-neutral-600 px-4 py-1.5 text-sm font-medium transition-all">Preview</TabsTrigger>
-                      <TabsTrigger value="code" className="data-[state=active]:bg-white data-[state=active]:text-neutral-900 data-[state=active]:shadow-sm text-neutral-600 px-4 py-1.5 text-sm font-medium transition-all">Code</TabsTrigger>
+                    <TabsList className="bg-neutral-100/80 border border-neutral-200 p-1 h-10 rounded-xl gap-0.5 shadow-inner">
+                      <TabsTrigger
+                        value="preview"
+                        className="data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-indigo-100/60 text-neutral-500 hover:text-neutral-700 rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all gap-1.5"
+                      >
+                        <Eye className="size-3.5" />
+                        Preview
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="code"
+                        className="data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-indigo-100/60 text-neutral-500 hover:text-neutral-700 rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all gap-1.5"
+                      >
+                        <Code2 className="size-3.5" />
+                        Code
+                      </TabsTrigger>
                     </TabsList>
                   </Tabs>
                   <HeaderActions user={user} projectId={project?.id} />
